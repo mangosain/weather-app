@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-blue-50 to-purple-50;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.weather-card {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.forecast-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.forecast-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.8);
 }
