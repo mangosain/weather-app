@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 
 import React from "react";
 import {
@@ -23,9 +23,8 @@ const kelvinToCelsius = (kelvin: number, decimal: number): number => {
   return parseFloat((kelvin - 273.15).toFixed(decimal));
 };
 
-const WeatherPage = ({ children }: any) => {
-  const lat = children.lat;
-  const lon = children.lon;
+const WeatherSearch = ({ params }: any) => {
+  const place = (use(params) as { place: string }).place;
 
   interface Weather {
     name: string;
@@ -62,7 +61,7 @@ const WeatherPage = ({ children }: any) => {
     var response: any;
     const fetchWeather = async () => {
       response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY}`
       );
       const data = await response.json();
       setWeather(data);
@@ -239,4 +238,4 @@ const WeatherPage = ({ children }: any) => {
   );
 };
 
-export default WeatherPage;
+export default WeatherSearch;

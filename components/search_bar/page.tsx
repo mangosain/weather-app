@@ -2,19 +2,32 @@
 
 import { Search } from "lucide-react";
 import Link from "next/link";
-import { on } from "node:events";
+
 import { useState } from "react";
 import { MdMyLocation } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const router = useRouter();
 
   const onChangeHandler = (event: string) => {
     setSearch(event);
   };
 
   const onSubmitHandler = () => {
-    console.log(search);
+    if (!search) {
+      alert("Please enter a valid country/city name");
+      return;
+    }
+    // Navigate to the search page
+    router.push(`/weather_search/${search}`);
+  };
+
+  const onKeyDownHandler = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      onSubmitHandler();
+    }
   };
 
   return (
@@ -28,6 +41,7 @@ const SearchBar = () => {
         placeholder="Search..."
         value={search}
         onChange={(e) => onChangeHandler(e.target.value)}
+        onKeyDown={onKeyDownHandler} // Listen for the Enter key press
       />
       <button type="submit" className="" onClick={onSubmitHandler}>
         <Search className="inline-block text-purple-600" />

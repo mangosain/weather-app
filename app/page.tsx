@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from "react";
 
 import WeatherPage from "@/components/weather_page/page";
-import { get } from "http";
 
 export default function Home() {
   interface Weather {
